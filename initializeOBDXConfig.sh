@@ -71,6 +71,10 @@ sh /JDBCReplace-jps-config.sh /JDBCList-jps-config $1 $2
 sh /weblogic-config.sh
 sh /nodemanager-config.sh
 
+sh sendmail_config.sh
+
+sleep 600
+
 sh /ExecuteWeblogic.sh
 sleep 180
 sh /StartApps.sh

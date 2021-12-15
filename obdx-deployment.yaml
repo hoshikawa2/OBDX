@@ -21,21 +21,21 @@ spec:
       containers:
       - name: ohsgsh
         image: iad.ocir.io/id3kyspkytmr/flexcube/ohsgsh:latest
-        securityContext:
-          privileged: true
+        #image: iad.ocir.io/id3kyspkytmr/oraclefmw-infra_with_patch:12.2.1.4.0
         command: [ "/bin/sh", "-c"]
-        args: [ "sleep 180; cd /; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/GEofC4bpkPdb3qkApDYYG2LKHDfgXz3q_6rzgEKDDcBcIcLGr6xK9dK9ecN7pNSB/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOHSConfig.sh; sh initializeOHSConfig.sh; while true; do sleep 30; done;" ]
+        args: [ "sleep 180; cd /; yum install tar -y; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/GEofC4bpkPdb3qkApDYYG2LKHDfgXz3q_6rzgEKDDcBcIcLGr6xK9dK9ecN7pNSB/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOHSConfig.sh; sh initializeOHSConfig.sh; while true; do sleep 30; done;" ]
         ports:
         - name: port7777
           containerPort: 7777
+        - name: port5557
+          containerPort: 5557
         - name: port4443
           containerPort: 4443
       - name: weblogicgsh
         image: iad.ocir.io/id3kyspkytmr/flexcube/weblogicgsh:latest
-        securityContext:
-          privileged: true
+        #image: iad.ocir.io/id3kyspkytmr/oraclefmw-infra_with_patch:12.2.1.4.0
         command: [ "/bin/sh", "-c"]
-        args: [ "sleep 180; cd /; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/oCZ4K4pdurtR4adOwhxJn6GF8VZQ4AhDikLksnnz3T1yEEUAa5p3MNukRUPV8pSw/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOBDXConfig.sh; sh initializeOBDXConfig.sh jdbc:oracle:thin:@132.145.191.118:1521:DB0401 {AES256}TXvV3prSj9Y5xAe4MbEe63W+G/4oishakc6Jku6/CB4=; while true; do sleep 30; done;" ]
+        args: [ "sleep 180; cd /; yum install tar -y; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/oCZ4K4pdurtR4adOwhxJn6GF8VZQ4AhDikLksnnz3T1yEEUAa5p3MNukRUPV8pSw/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOBDXConfig.sh; sh initializeOBDXConfig.sh jdbc:oracle:thin:@132.145.191.118:1521:DB0401 {AES256}TXvV3prSj9Y5xAe4MbEe63W+G/4oishakc6Jku6/CB4=; while true; do sleep 30; done;" ]
         ports:
         - name: port7001
           containerPort: 7001
@@ -59,20 +59,22 @@ spec:
           containerPort: 7010
         - name: port5557
           containerPort: 5557
+        - name: port7777
+          containerPort: 7777
         - name: port25
           containerPort: 25
         - name: port465
           containerPort: 465
         - name: port587
           containerPort: 587
-#        livenessProbe:
-#          httpGet:
-#            path: /console
-#            port: 7001
-#          initialDelaySeconds: 3000
-#          timeoutSeconds: 30
-#          periodSeconds: 300
-#          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /console
+            port: 7001
+          initialDelaySeconds: 4800
+          timeoutSeconds: 30
+          periodSeconds: 300
+          failureThreshold: 3
 #        resources:
 #          requests:
 #            cpu: "1"
@@ -86,46 +88,3 @@ spec:
       # enter the name of the secret you created
       - name: ocirsecret
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: weblogicgsh-service
-  labels:
-    app: obdx
-spec:
-  selector:
-    app: obdx
-  ports:
-    - port: 7001
-      targetPort: 7001
-  type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ohsgsh-service
-  labels:
-    app: obdx
-spec:
-  selector:
-    app: obdx
-  ports:
-    - name: http
-      protocol: TCP
-      port: 7777
-      targetPort: 7777
-  type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mainpage-service
-  labels:
-    app: obdx
-spec:
-  selector:
-    app: obdx
-  ports:
-    - port: 7003
-      targetPort: 7003
-  type: LoadBalancer

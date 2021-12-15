@@ -43,6 +43,9 @@ mv index.html /scratch/gsh/OBDX/ohs/deploy/index.html
 mv config.js /scratch/gsh/OBDX/ohs/deploy/framework/js/configurations/config.js
 mv require-config.59c6a4b2a8e15107d995.js /scratch/gsh/OBDX/ohs/deploy/framework/js/configurations/require-config.59c6a4b2a8e15107d995.js
 mv security.b715375b6895dba422d4.js /scratch/gsh/OBDX/ohs/deploy/framework/js/configurations/security.b715375b6895dba422d4.js
+mkdir /root/.wlst
+mv nm-cfg-ohsDomain.props /root/.wlst/nm-cfg-ohsDomain.props
+mv nm-key-ohsDomain.props /root/.wlst/nm-key-ohsDomain.props
 
 ####
 
@@ -54,4 +57,4 @@ sh /ohs-config.sh
 
 cd  /scratch/gsh/oracle/ohssa/user_projects/domains/ohsDomain/bin
 sh startNodeManager.sh &
-sh startComponent.sh ohs_sa1 storeUserConfig
+sh startComponent.sh ohs_sa1
