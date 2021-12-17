@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="OBDX-Package">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OBDX-Package.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
