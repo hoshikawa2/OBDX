@@ -35,7 +35,7 @@ spec:
         image: iad.ocir.io/id3kyspkytmr/flexcube/weblogicgsh:latest
         #image: iad.ocir.io/id3kyspkytmr/oraclefmw-infra_with_patch:12.2.1.4.0
         command: [ "/bin/sh", "-c"]
-        args: [ "sleep 180; cd /; yum install tar -y; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/oCZ4K4pdurtR4adOwhxJn6GF8VZQ4AhDikLksnnz3T1yEEUAa5p3MNukRUPV8pSw/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOBDXConfig.sh; sh initializeOBDXConfig.sh jdbc:oracle:thin:@132.145.191.118:1521:DB0401 {AES256}TXvV3prSj9Y5xAe4MbEe63W+G/4oishakc6Jku6/CB4=; while true; do sleep 30; done;" ]
+        args: [ "sleep 180; cd /; yum install tar -y; wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/oCZ4K4pdurtR4adOwhxJn6GF8VZQ4AhDikLksnnz3T1yEEUAa5p3MNukRUPV8pSw/n/id3kyspkytmr/b/bucket_banco_conceito/o/initializeOBDXConfig.sh; sh initializeOBDXConfig.sh <JDBC URL for OBDX Oracle Database> {AES256}<password>; while true; do sleep 30; done;" ]
         ports:
         - name: port7001
           containerPort: 7001
