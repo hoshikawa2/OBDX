@@ -177,12 +177,12 @@ This is the DevOps shell script to prepare a OBDX Image and make it work for use
     # Set Variables
     export JDBCString=$JDBCString
     export JDBCPassword=$JDBCPassword
-    # setup the JDBC variables in OBDX144-devops.yaml
-    sed -i "s~--JDBCString--~$JDBCString~g" OBDX144-devops.yaml
-    sed -i "s~--JDBCPassword--~$JDBCPassword~g" OBDX144-devops.yaml
-    # Deploy OBDX144
+    # setup the JDBC variables in obdx-test.yaml
+    sed -i "s~--JDBCString--~$JDBCString~g" obdx-test.yaml
+    sed -i "s~--JDBCPassword--~$JDBCPassword~g" obdx-test.yaml
+    # Deploy OBDX
     kubectl config view
-    kubectl replace -f OBDX144-devops.yaml --force
+    kubectl replace -f obdx-test.yaml --force
 
 # 
 
